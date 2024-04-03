@@ -1,13 +1,9 @@
 import { gsap, random } from "@/plugins/gsap";
 
-interface IExplodeAnimationOptions {
-  remove: boolean;
-}
-
 const PARTICLE_CLASS = "animation-explode-particle";
 const PARTICLES_COUNT = 20;
 
-export const showExplodeAnimation = (element: HTMLElement, options: IExplodeAnimationOptions = { remove: true }) => {
+export const showExplodeAnimation = (element: HTMLElement) => {
   const elementCoords = element.getBoundingClientRect();
 
   const startPosition = {
@@ -36,6 +32,6 @@ export const showExplodeAnimation = (element: HTMLElement, options: IExplodeAnim
       });
     }
 
-    if (options.remove) element.remove();
+    element.remove();
   });
 };

@@ -75,7 +75,7 @@ const animate = async (container: HTMLElement) => {
     ease: `steps(${motionPath.length})`,
     duration: 8,
     onStart() {
-      returnData.killAnimation = this.kill;
+      returnData.killAnimation = this.kill.bind(this);
     },
     onComplete() {
       blockElement.remove();

@@ -43,7 +43,7 @@ export const showPixelFillEffect = async (container: HTMLElement, options: Pixel
       duration: 0.001,
       backgroundColor: options.color,
       stagger: {
-        amount: pixelTransitionAudio.duration,
+        amount: pixelTransitionAudio.duration(),
         from: "random",
       },
       onComplete: () => {

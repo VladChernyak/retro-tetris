@@ -1,3 +1,4 @@
+import { Howl } from "howler";
 import { AbstractScreen } from "@/ts/abstract";
 import { isMobileBrowser } from "@/utils/checkMobileBrowser";
 import { playAudio } from "@/utils/playAudio";
@@ -55,30 +56,18 @@ export class LoadingScreen extends AbstractScreen {
     this.progressValueElement.style.width = `${roundedProgressValueWidth}px`;
   }
 
-  private preloadMedia(
-    urls: Record<string, string>,
-    constructor: Constructable<HTMLMediaElement | HTMLImageElement>,
-    eventName: "onload" | "oncanplaythrough"
-  ) {
+  private preloadMedia(urls: Record<string, string>, constructor: Constructable<HTMLMediaElement | HTMLImageElement>) {
     const allMedia = Object.values(urls);
     const promises: Promise<any>[] = [];
 
     allMedia.forEach((url) => {
       const media = new constructor();
 
-      if (media instanceof HTMLMediaElement) {
-        media.preload = "auto";
-      }
-
       media.src = url;
-
-      if (media instanceof HTMLMediaElement) {
-        media.load();
-      }
 
       promises.push(
         new Promise((resolve) => {
-          media[eventName] = resolve;
+          media.onload = resolve;
         })
       );
     });
@@ -88,12 +77,26 @@ export class LoadingScreen extends AbstractScreen {
 
   private async preloadImages() {
     const imageUrls = import.meta.glob("@/assets/images/**/*.*", { eager: true, as: "url" });
-    await this.preloadMedia(imageUrls, Image, "onload");
+    await this.preloadMedia(imageUrls, Image);
   }
 
-  private async preloadAudio() {
+  private preloadAudio() {
     const audioUrls = import.meta.glob("@/assets/sounds/**/*.*", { eager: true, as: "url" });
-    this.preloadMedia(audioUrls, Audio, "oncanplaythrough");
+    const promises: Promise<any>[] = [];
+
+    Object.values(audioUrls).forEach((url) => {
+      const promise = new Promise((resolve) => {
+        new Howl({
+          src: url,
+          preload: true,
+          onload: resolve,
+        });
+      });
+
+      promises.push(promise);
+    });
+
+    return Promise.all(promises);
   }
 
   private onFontsLoaded() {

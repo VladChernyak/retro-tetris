@@ -15,7 +15,7 @@ export class StartScreen extends AbstractScreen {
   private START_TEXT_SELECTOR = "#start-screen-start-text";
 
   private bgAnimationData: ITetrisBgAnimationReturnData;
-  private mainThemeAudio: HTMLAudioElement;
+  private mainThemeAudio: Howl;
 
   private onStartCallback?: Function;
   private startListenerParams: IControlsListenerParams<"keydown" | "touchend">;
@@ -39,9 +39,7 @@ export class StartScreen extends AbstractScreen {
   private async start() {
     window.removeEventListener(this.startListenerParams.eventName, this.startListenerParams.handler);
 
-    this.mainThemeAudio.pause();
-    this.mainThemeAudio.currentTime = 0;
-
+    this.mainThemeAudio.stop();
     playAudio(startSoundAudioUrl);
 
     const startTextElement = document.querySelector<HTMLElement>(this.START_TEXT_SELECTOR);
@@ -50,8 +48,9 @@ export class StartScreen extends AbstractScreen {
       startTextElement.style.animation = "none";
     }
 
-    if (this.bgAnimationData.animatedElement) {
+    if (this.bgAnimationData.animatedElement && this.bgAnimationData.killAnimation) {
       await showExplodeAnimation(this.bgAnimationData.animatedElement);
+      this.bgAnimationData.killAnimation();
     }
 
     showPixelFillEffect(this.rootElement, { color: "#281D2C", onFilled: this.onStartCallback });
@@ -63,9 +62,9 @@ export class StartScreen extends AbstractScreen {
   }
 
   protected async afterRender() {
-    this.mainThemeAudio = await playAudio(mainThemeAudioUrl, { loop: true });
-
     this.showHighScore();
+
+    this.mainThemeAudio = await playAudio(mainThemeAudioUrl, { loop: true });
     this.bgAnimationData = showTetrisBgAnimation(this.BG_ANIMATION_CONTAINER_SELECTOR);
 
     if (isMobileBrowser) {
