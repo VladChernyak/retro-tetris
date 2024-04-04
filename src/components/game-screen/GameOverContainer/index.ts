@@ -7,6 +7,7 @@ import gameOverAudioUrl from "@/assets/sounds/game-over.mp3";
 import playAudioUrl from "@/assets/sounds/play.mp3";
 
 export class GameOverContainer extends AbstractComponent {
+  private SCORE_CONTAINER_SELECTOR = "#game-screen-game-over-score";
   private MENU_SELECTOR = "#game-screen-game-over-menu";
   private MENU_ITEM_ACTIVE_CLASS = "active";
 
@@ -16,6 +17,13 @@ export class GameOverContainer extends AbstractComponent {
 
   constructor() {
     super({ templateSelector: "#game-screen-game-over" });
+  }
+
+  private setScore() {
+    const scoreContainerElement = this.rootElement.querySelector(this.SCORE_CONTAINER_SELECTOR)!;
+    const lastScore = localStorage.getItem("last-score");
+
+    scoreContainerElement.innerHTML = `<b>Score:</b> ${lastScore}`;
   }
 
   private playAgain() {
@@ -95,6 +103,7 @@ export class GameOverContainer extends AbstractComponent {
 
   protected async afterRender() {
     playAudio(gameOverAudioUrl);
+    this.setScore();
     await showScaleAnimation(this.rootElement);
     this.initKeydownListener();
   }

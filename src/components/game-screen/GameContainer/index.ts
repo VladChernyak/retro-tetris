@@ -349,6 +349,7 @@ export class GameContainer extends AbstractComponent {
 
   private async gameOver() {
     this.updateHighScore();
+    localStorage.setItem("last-score", String(this.score));
 
     this.score = 0;
     this.lines = 0;
