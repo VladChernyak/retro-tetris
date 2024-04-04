@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "Vlad Chernyak",
+    "email": "mailto.chernyak@gmail.com",
+    "url": "https://github.com/VladChernyak"
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",

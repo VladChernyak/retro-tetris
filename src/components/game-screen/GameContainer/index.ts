@@ -14,7 +14,11 @@ import { random } from "@/plugins/gsap";
 import { isMobileBrowser } from "@/utils/checkMobileBrowser";
 import { playAudio } from "@/utils/playAudio";
 
+import gameThemeAudioUrl from "@/assets/sounds/game-theme.mp3";
 import timerAudioUrl from "@/assets/sounds/timer.mp3";
+import rowFilledAudioUrl from "@/assets/sounds/row-filled.mp3";
+import dropBlockAudioUrl from "@/assets/sounds/drop-block.mp3";
+import pauseAudioUrl from "@/assets/sounds/pause.mp3";
 
 export class GameContainer extends AbstractComponent {
   private PLAYFIELD_SELECTOR = "#game-screen-playfield";
@@ -50,6 +54,7 @@ export class GameContainer extends AbstractComponent {
   private pauseListenerParams: IControlsListenerParams<"keydown" | "click">;
   private gameOverCallback: Function;
   private pauseCallback: Function;
+  private gameThemeAudio: Howl;
 
   constructor() {
     super({ templateSelector: "#game-screen-game-container" });
@@ -349,6 +354,8 @@ export class GameContainer extends AbstractComponent {
     this.lines = 0;
     this.level = 1;
 
+    this.gameThemeAudio.stop();
+
     clearInterval(this.moveActiveBlockDownInterval);
     window.removeEventListener(
       this.moveActiveBlockListenerParams.eventName,
@@ -364,6 +371,10 @@ export class GameContainer extends AbstractComponent {
       if (isFilled) acc.push(rowIndex);
       return acc;
     }, []);
+
+    if (filledRowsIndexes.length === 0) return;
+
+    playAudio(rowFilledAudioUrl);
 
     const animationsPromises = filledRowsIndexes.map((rowIndex) => {
       const tableRow = this.playfieldElement.rows[rowIndex];
@@ -481,6 +492,7 @@ export class GameContainer extends AbstractComponent {
         break;
       }
 
+      playAudio(dropBlockAudioUrl, { volume: 0.2 });
       this.moveActiveBlockDown();
       droppedTrough++;
     }
@@ -594,12 +606,17 @@ export class GameContainer extends AbstractComponent {
   }
 
   public async resume() {
+    this.gameThemeAudio.play();
+
     await this.showContainer();
     this.initActiveBlockMovement();
     this.initPauseListener();
   }
 
   private async pause() {
+    this.gameThemeAudio.pause();
+    playAudio(pauseAudioUrl);
+
     window.clearInterval(this.moveActiveBlockDownInterval);
     window.removeEventListener(
       this.moveActiveBlockListenerParams.eventName,
@@ -648,6 +665,7 @@ export class GameContainer extends AbstractComponent {
     this.setGameElements();
     this.fillPlayfield();
 
+    this.gameThemeAudio = await playAudio(gameThemeAudioUrl, { loop: true });
     await this.showInitialAnimations();
     await this.startTimer();
     this.start();

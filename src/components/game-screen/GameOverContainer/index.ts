@@ -1,6 +1,10 @@
 import { AbstractComponent } from "@/ts/abstract";
 import { showScaleAnimation } from "@/animations/showScaleAnimation";
 import { isMobileBrowser } from "@/utils/checkMobileBrowser";
+import { playAudio } from "@/utils/playAudio";
+
+import gameOverAudioUrl from "@/assets/sounds/game-over.mp3";
+import playAudioUrl from "@/assets/sounds/play.mp3";
 
 export class GameOverContainer extends AbstractComponent {
   private MENU_SELECTOR = "#game-screen-game-over-menu";
@@ -12,6 +16,11 @@ export class GameOverContainer extends AbstractComponent {
 
   constructor() {
     super({ templateSelector: "#game-screen-game-over" });
+  }
+
+  private playAgain() {
+    playAudio(playAudioUrl);
+    this.playAgainCallback();
   }
 
   private onKeyDown({ code }: KeyboardEvent) {
@@ -31,7 +40,7 @@ export class GameOverContainer extends AbstractComponent {
 
       case "Enter":
         if (yes.classList.contains(this.MENU_ITEM_ACTIVE_CLASS)) {
-          this.playAgainCallback();
+          this.playAgain();
         } else {
           window.removeEventListener(this.menuListenerParams.eventName, this.menuListenerParams.handler);
           this.quitCallback();
@@ -46,7 +55,7 @@ export class GameOverContainer extends AbstractComponent {
 
     switch (button.id) {
       case "yes-btn":
-        this.playAgainCallback();
+        this.playAgain();
         break;
 
       case "no-btn":
@@ -85,6 +94,7 @@ export class GameOverContainer extends AbstractComponent {
   }
 
   protected async afterRender() {
+    playAudio(gameOverAudioUrl);
     await showScaleAnimation(this.rootElement);
     this.initKeydownListener();
   }

@@ -1,6 +1,9 @@
 import { AbstractComponent } from "@/ts/abstract";
 import { showScaleAnimation } from "@/animations/showScaleAnimation";
 import { isMobileBrowser } from "@/utils/checkMobileBrowser";
+import { playAudio } from "@/utils/playAudio";
+
+import playAudioUrl from "@/assets/sounds/play.mp3";
 
 export class PauseContainer extends AbstractComponent {
   private MENU_SELECTOR = "#game-screen-pause-menu";
@@ -14,13 +17,18 @@ export class PauseContainer extends AbstractComponent {
     super({ templateSelector: "#game-screen-pause" });
   }
 
+  private resume() {
+    playAudio(playAudioUrl);
+    this.resumeCallback();
+  }
+
   private onKeyDown({ code }: KeyboardEvent) {
     const menuContainer = this.rootElement.querySelector(this.MENU_SELECTOR)!;
     const [resume, quit] = menuContainer.querySelectorAll("li");
 
     switch (code) {
       case "Escape":
-        this.resumeCallback();
+        this.resume();
         break;
 
       case "ArrowUp":
@@ -35,7 +43,7 @@ export class PauseContainer extends AbstractComponent {
 
       case "Enter":
         if (resume.classList.contains(this.MENU_ITEM_ACTIVE_CLASS)) {
-          this.resumeCallback();
+          this.resume();
         } else {
           window.removeEventListener(this.menuListenerParams.eventName, this.menuListenerParams.handler);
           this.quitCallback();
@@ -50,7 +58,7 @@ export class PauseContainer extends AbstractComponent {
 
     switch (button.id) {
       case "resume-btn":
-        this.resumeCallback();
+        this.resume();
         break;
 
       case "quit-btn":
@@ -83,12 +91,12 @@ export class PauseContainer extends AbstractComponent {
     this.quitCallback = callback;
   }
 
-  protected beforeRemove() {
-    window.removeEventListener(this.menuListenerParams.eventName, this.menuListenerParams.handler);
-  }
-
   protected async afterRender() {
     await showScaleAnimation(this.rootElement);
     this.initKeydownListener();
+  }
+
+  protected beforeRemove() {
+    window.removeEventListener(this.menuListenerParams.eventName, this.menuListenerParams.handler);
   }
 }
