@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msapplication-TileColor" content="#18314a" />
+    <meta name="theme-color" content="#18314a" />
+    <meta name="og:title" content="TETRIS" />
+    <meta name="description" content="Retro Tetris game. Developed by Vlad Chernyak" />
+    <meta name="og:description" content="Retro Tetris game. Developed by Vlad Chernyak" />
+    <meta name="og:image" content="icons/android-chrome-192x192.png" />
+    <title>TETRIS</title>
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
+    <link rel="manifest" href="/retro-tetris/site.webmanifest" />
+    <script type="module" crossorigin src="/retro-tetris/assets/index-D3SSwRr0.js"></script>
+    <link rel="stylesheet" crossorigin href="/retro-tetris/assets/index-2orILnnM.css">
+  </head>
+  <body>
+    <main id="tetris" class="tetris">
+      <template id="loading-screen">
+        <section class="loading-screen">
+          <div class="loading-screen__loader">
+            <p class="loading-screen__loader-text">Loading</p>
+            <div id="progress" class="loading-screen__loader-progress">
+              <div id="progress-value" class="loading-screen__loader-progress-inner"></div>
+            </div>
+          </div>
+        </section>
+      </template>
+
+      <template id="start-screen">
+        <section class="start-screen">
+          <div id="start-screen-animated-bg" class="start-screen__animated-bg"></div>
+          <div id="start-screen-high-score" class="start-screen__high-score"></div>
+          <h1 class="start-screen__logo">TETRIS</h1>
+          <p id="start-screen-start-text" class="start-screen__start-text" data-mobile-text="Tap to continue">
+            <span>Press ENTER to start</span>
+          </p>
+        </section>
+      </template>
+
+      <template id="game-screen">
+        <section class="game-screen">
+          <div id="game-screen-animated-bg" class="game-screen__animated-bg"></div>
+        </section>
+      </template>
+
+      <template id="game-screen-game-container">
+        <div class="game-screen__game">
+          <div class="game-screen__info">
+            <ul id="game-screen-results" class="game-screen__results">
+              <li id="game-screen-score" style="--value: '0'">
+                <span>Score:</span>
+                <span></span>
+              </li>
+              <li id="game-screen-level" style="--value: '1'">
+                <span>Level:</span>
+                <span></span>
+              </li>
+              <li id="game-screen-lines" style="--value: '0'">
+                <span>Lines:</span>
+                <span></span>
+              </li>
+            </ul>
+
+            <div id="game-screen-next" class="game-screen__next-block">
+              <div class="game-screen__next-block-title">Next</div>
+              <table>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <button id="game-screen-mobile-pause-btn" class="game-screen__mobile-pause-btn"></button>
+          </div>
+
+          <table id="game-screen-playfield" class="game-screen__playfield"></table>
+
+          <div id="game-screen-mobile-controls" class="game-screen__mobile-controls">
+            <button id="rotate-btn"></button>
+            <button id="left-btn"></button>
+            <button id="right-btn"></button>
+            <button id="down-btn"></button>
+          </div>
+        </div>
+      </template>
+
+      <template id="game-screen-game-over">
+        <div class="game-screen__game-over">
+          <h1 class="game-screen__game-over-title">GAME OVER</h1>
+
+          <p id="game-screen-game-over-score" class="game-screen__game-over-score"></p>
+
+          <div id="game-screen-game-over-menu" class="game-screen__play-again">
+            <p class="game-screen__play-again-text">Play again?</p>
+            <nav class="game-screen__play-again-menu">
+              <ul>
+                <li class="active">
+                  <button id="yes-btn">Yes</button>
+                </li>
+                <li>
+                  <button id="no-btn">No</button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </template>
+
+      <template id="game-screen-pause">
+        <div class="game-screen__pause">
+          <h1 class="game-screen__pause-title">PAUSED</h1>
+
+          <nav id="game-screen-pause-menu" class="game-screen__pause-menu">
+            <ul>
+              <li class="active">
+                <button id="resume-btn">Resume</button>
+              </li>
+              <li>
+                <button id="quit-btn">Quit game</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </template>
+    </main>
+
+  </body>
+</html>
