@@ -261,8 +261,10 @@ export class GameContainer extends AbstractComponent {
       if (currentRowIndex < 0) return;
 
       row.forEach((cell, cellIndex) => {
-        if (cell) {
-          this.playfieldState[this.activeBlockData.y + rowIndex][this.activeBlockData.x + cellIndex] = {
+        const playfieldRow = this.playfieldState[this.activeBlockData.y + rowIndex];
+
+        if (cell && playfieldRow) {
+          playfieldRow[this.activeBlockData.x + cellIndex] = {
             id: this.activeBlockData.id,
             type: this.activeBlockData.type,
           };
@@ -470,6 +472,11 @@ export class GameContainer extends AbstractComponent {
     const isRequiredAreaOccupied = turnedMatrix.some((row, rowIndex) => {
       return row.some((_, cellIndex) => {
         const playfieldRowIndex = rowIndex + this.activeBlockData.y;
+
+        if (playfieldRowIndex > this.PLAYFIELD_HEIGHT - 1) {
+          return true;
+        }
+
         const playfieldColIndex = cellIndex + turnedBlockX;
         const playfieldCell = this.playfieldState[playfieldRowIndex]?.[playfieldColIndex];
 
