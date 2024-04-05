@@ -1,0 +1,49 @@
+.tetris {
+  position: relative;
+  border: 25px solid #000;
+  height: 100%;
+  font-family: "Press Start 2P", monospace;
+  color: #fff;
+  background-color: #08080a;
+  background-image: radial-gradient(ellipse, #18314a 0%, #102030 90%);
+  overflow: hidden;
+  touch-action: manipulation;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent 50%, rgba(9, 19, 28, 0.6) 51%);
+    background-size: 100% 4px;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("@/assets/images/vignette.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    z-index: 1001;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: $md) {
+  .tetris {
+    border-width: 10px;
+
+    &::before {
+      background-size: 100% 2px;
+    }
+  }
+}

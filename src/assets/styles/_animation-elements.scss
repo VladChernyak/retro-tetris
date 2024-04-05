@@ -1,0 +1,76 @@
+.animation-tetris-block {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.animation-turn-on-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 998;
+}
+
+.animation-turn-on-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 999;
+}
+
+.animation-explode-particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.animation-pixel-fill-grid {
+  position: absolute;
+  display: grid;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.animation-stars-item {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  &.scull {
+    width: 10px;
+    height: 10px;
+    background: url("@/assets/images/game-screen/scull.svg") no-repeat center / cover;
+
+    @media (max-width: $md) {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  &.pause {
+    width: 12px;
+    height: 12px;
+    background: url("@/assets/images/game-screen/pause-circle.svg") no-repeat center / cover;
+
+    @media (max-width: $md) {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}

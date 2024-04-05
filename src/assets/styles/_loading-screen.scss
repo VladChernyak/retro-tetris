@@ -1,0 +1,47 @@
+$loader-color: #fff;
+
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  height: 100%;
+  background-color: #000;
+
+  &__loader {
+    &-text {
+      margin-bottom: 15px;
+      font-weight: 700;
+      font-size: 24px;
+      color: $loader-color;
+      text-transform: uppercase;
+    }
+
+    &-progress {
+      position: relative;
+      height: 40px;
+      width: 323px;
+      border: 2px solid $loader-color;
+
+      &-inner {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        padding: 4px;
+        background-origin: content-box;
+        background-repeat: repeat-x;
+        background-size: 35px;
+        background-image: linear-gradient(
+          to right,
+          $loader-color 0px,
+          $loader-color 31px,
+          transparent 31px,
+          transparent 35px
+        );
+      }
+    }
+  }
+}
