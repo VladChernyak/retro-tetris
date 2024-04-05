@@ -251,9 +251,29 @@
       justify-content: center;
       width: 80px;
       height: 80px;
-      padding: 5px;
+      padding: 10px;
       border: 3px solid #fff;
       border-radius: 2px;
+      background-origin: content-box;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      &#rotate-btn {
+        background-image: url("@/assets/images/game-screen/rotate.svg");
+      }
+
+      &#left-btn {
+        background-image: url("@/assets/images/game-screen/arrow-left.svg");
+      }
+
+      &#right-btn {
+        background-image: url("@/assets/images/game-screen/arrow-right.svg");
+      }
+
+      &#down-btn {
+        background-image: url("@/assets/images/game-screen/arrow-down.svg");
+      }
 
       &:active {
         background-color: rgba(255, 255, 255, 0.2);
@@ -261,11 +281,6 @@
 
       &:not(:last-child) {
         margin-right: 25px;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
       }
     }
   }
@@ -371,6 +386,7 @@
 
     &__mobile-controls {
       button {
+        padding: 5px;
         width: 50px;
         height: 50px;
       }
