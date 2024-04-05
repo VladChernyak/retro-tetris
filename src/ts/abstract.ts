@@ -1,12 +1,15 @@
 export interface IContructorParams {
   templateSelector: string;
+  title?: string;
 }
 
 export abstract class AbstractScreen {
   protected template: HTMLTemplateElement;
   protected rootElement: HTMLElement;
+  protected title?: string;
 
-  constructor({ templateSelector }: IContructorParams) {
+  constructor({ templateSelector, title }: IContructorParams) {
+    this.title = title;
     this.cutTemplate(templateSelector);
   }
 
@@ -21,6 +24,10 @@ export abstract class AbstractScreen {
     this.template = template;
   }
 
+  protected setDocumentTitle() {
+    document.title = this.title ? `${this.title} | TETRIS` : "TETRIS";
+  }
+
   protected beforeRender?(): void;
   protected afterRender?(): void;
 
@@ -32,6 +39,8 @@ export abstract class AbstractScreen {
     if (this.beforeRender) {
       await this.beforeRender();
     }
+
+    this.setDocumentTitle();
 
     this.rootElement = this.template.content.firstElementChild?.cloneNode(true) as HTMLElement;
     container.append(this.rootElement);

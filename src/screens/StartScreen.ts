@@ -21,7 +21,7 @@ export class StartScreen extends AbstractScreen {
   private startListenerParams: IControlsListenerParams<"keydown" | "touchend">;
 
   constructor() {
-    super({ templateSelector: "#start-screen" });
+    super({ templateSelector: "#start-screen", title: "Start game" });
   }
 
   private showHighScore() {

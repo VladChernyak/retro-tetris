@@ -14,7 +14,7 @@ export class PauseContainer extends AbstractComponent {
   private quitCallback: Function;
 
   constructor() {
-    super({ templateSelector: "#game-screen-pause" });
+    super({ templateSelector: "#game-screen-pause", title: "Paused" });
   }
 
   private resume() {
@@ -98,5 +98,10 @@ export class PauseContainer extends AbstractComponent {
 
   protected beforeRemove() {
     window.removeEventListener(this.menuListenerParams.eventName, this.menuListenerParams.handler);
+  }
+
+  protected afterRemove() {
+    this.title = "";
+    this.setDocumentTitle();
   }
 }

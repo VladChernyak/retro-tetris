@@ -2,8 +2,8 @@ import { LoadingScreen } from "./screens/LoadingScreen";
 import { StartScreen } from "@/screens/StartScreen.ts";
 import { GameScreen } from "@/screens/GameScreen";
 import { showTurnOnEffect } from "./animations/showTurnOnEffect";
-import "@/assets/styles/main.scss";
 import { showPixelFillEffect } from "./animations/showPixelFillEffect";
+import "@/assets/styles/main.scss";
 
 class Tetris {
   private CONTAINER_SELECTOR = "#tetris";

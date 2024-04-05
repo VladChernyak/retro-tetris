@@ -16,7 +16,7 @@ export class GameOverContainer extends AbstractComponent {
   private quitCallback: Function;
 
   constructor() {
-    super({ templateSelector: "#game-screen-game-over" });
+    super({ templateSelector: "#game-screen-game-over", title: "Game Over" });
   }
 
   private setScore() {
