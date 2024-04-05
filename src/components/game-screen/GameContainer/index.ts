@@ -364,6 +364,7 @@ export class GameContainer extends AbstractComponent {
       this.moveActiveBlockListenerParams.eventName,
       this.moveActiveBlockListenerParams.handler
     );
+    window.removeEventListener(this.pauseListenerParams.eventName, this.pauseListenerParams.handler);
 
     if (this.gameOverCallback) this.gameOverCallback();
   }
