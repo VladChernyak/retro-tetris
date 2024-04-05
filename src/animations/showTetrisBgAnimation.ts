@@ -1,14 +1,6 @@
 import { gsap, random } from "@/plugins/gsap";
 import { TetrisBlockTypes } from "@/ts/enums";
 
-import lBlockUrl from "@/assets/images/start-screen/l-block.svg";
-import oBlockUrl from "@/assets/images/start-screen/o-block.svg";
-import sBlockUrl from "@/assets/images/start-screen/s-block.svg";
-import tBlockUrl from "@/assets/images/start-screen/t-block.svg";
-import jBlockUrl from "@/assets/images/start-screen/j-block.svg";
-import iBlockUrl from "@/assets/images/start-screen/i-block.svg";
-import zBlockUrl from "@/assets/images/start-screen/z-block.svg";
-
 export interface ITetrisBgAnimationReturnData {
   animatedElement: HTMLElement | null;
   killAnimation: Function | null;
@@ -21,16 +13,6 @@ const tetrisBlockSize = document.documentElement.clientWidth > 600 ? 150 : 80;
 const returnData: ITetrisBgAnimationReturnData = {
   animatedElement: null,
   killAnimation: null,
-};
-
-const tetrisBlocksImagesUrls = {
-  lBlockUrl,
-  oBlockUrl,
-  sBlockUrl,
-  tBlockUrl,
-  jBlockUrl,
-  iBlockUrl,
-  zBlockUrl,
 };
 
 const createRandomMotionPath = (container: HTMLElement) => {
@@ -73,13 +55,11 @@ const createRandomMotionPath = (container: HTMLElement) => {
 
 const animate = async (container: HTMLElement) => {
   const randomBlockType = random(TETRIS_BLOCK_TYPES);
-  const randomBlockImage = tetrisBlocksImagesUrls[`${randomBlockType}BlockUrl`];
 
   const blockElement = document.createElement("div");
-  blockElement.className = TETRIS_BLOCK_CLASS;
+  blockElement.classList.add(TETRIS_BLOCK_CLASS, `${randomBlockType}-block`);
   blockElement.style.width = `${tetrisBlockSize}px`;
   blockElement.style.height = `${tetrisBlockSize}px`;
-  blockElement.style.backgroundImage = `url(${randomBlockImage})`;
 
   returnData.animatedElement = blockElement;
   container.append(blockElement);

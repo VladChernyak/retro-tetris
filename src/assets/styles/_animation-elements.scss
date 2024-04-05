@@ -3,6 +3,34 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+
+  &.l-block {
+    background-image: url("@/assets/images/start-screen/l-block.svg");
+  }
+
+  &.o-block {
+    background-image: url("@/assets/images/start-screen/o-block.svg");
+  }
+
+  &.s-block {
+    background-image: url("@/assets/images/start-screen/s-block.svg");
+  }
+
+  &.t-block {
+    background-image: url("@/assets/images/start-screen/t-block.svg");
+  }
+
+  &.j-block {
+    background-image: url("@/assets/images/start-screen/j-block.svg");
+  }
+
+  &.i-block {
+    background-image: url("@/assets/images/start-screen/i-block.svg");
+  }
+
+  &.z-block {
+    background-image: url("@/assets/images/start-screen/z-block.svg");
+  }
 }
 
 .animation-turn-on-overlay {
